@@ -35,6 +35,14 @@ TELEGRAM_TOKEN = "xxxxxxxxxx"
 TELEGRAM_CHAT_ID = "xxxxxxxxx"
 
 def send_to_telegram(message):
+    """Sends a message to a Telegram chat using the Telegram Bot API.
+    
+    Args:
+        message (str): The message to be sent to the Telegram chat.
+    
+    Returns:
+        None: This function doesn't return anything, it performs the action of sending a message.
+    """
     send_text = 'https://api.telegram.org/bot' + TELEGRAM_TOKEN + '/sendMessage?chat_id=' + \
         TELEGRAM_CHAT_ID + '&text=' + json.dumps(message)
 
@@ -150,11 +158,31 @@ class BetUsCrawler(scrapy.Spider):
     #         '//div[@id="race-times-tabs"]//select/option[last()]/@value').get()
     #     print(options)
 
+    """Parses the response to extract race URLs and generates requests for each race.
+    
+    Args:
+        self: The instance of the spider class.
+        response (scrapy.http.Response): The response object containing the page content.
+    
+    Returns:
+        Iterator[scrapy.Request]: An iterator of Scrapy Request objects for each race URL.
+    """
     #     for i in range(1, int(options)+1):
     #         base_url = response.url
     #         url = f'{base_url[:-81]}/Race-{i}.aspx&api_key={SCRAPERAPI_KEY}&country_code=US&scraper_sdk=python'
     #         print("Going into: ", url)
-    #         yield scrapy.Request(url=url, callback=self.parse_items)
+    ```
+    """Parses and processes horse race information from a web page response.
+    
+    Args:
+        self: The instance of the class containing this method.
+        response (scrapy.http.Response): The HTTP response object containing the web page content.
+    
+    Returns:
+        None: This method doesn't return anything, but it processes the data and updates MongoDB collections.
+    """
+    
+    ```    #         yield scrapy.Request(url=url, callback=self.parse_items)
 
     # without proxy
     def parse(self, response):

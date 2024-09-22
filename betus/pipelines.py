@@ -17,8 +17,34 @@ from datetime import datetime
 
 class BetusPipeline:
     def __init__(self):
+        """Initialize a new instance of the class.
+        
+        Args:
+            None
+"""Creates and initializes a pipeline instance from a crawler.
+
+Args:
+    cls (type): The class object of the pipeline.
+    crawler (scrapy.crawler.Crawler): The crawler object to associate with the pipeline.
+
+Returns:
+    Pipeline: An instance of the pipeline class connected to the crawler's signals.
+"""
+        
+        Returns:
+            None: This method doesn't return anything, it initializes the 'files' attribute as an empty dictionary.
+        """
         self.files = {}
 
+    """
+    Opens a CSV file for exporting spider data and initializes the CSV exporter.
+    
+    Args:
+        spider (Spider): The spider instance that was opened.
+    
+    Returns:
+        None: This method doesn't return anything.
+    """
     @classmethod
     def from_crawler(cls, crawler):
         pipeline = cls()
@@ -36,6 +62,23 @@ class BetusPipeline:
         self.exporter.start_exporting()
 
     def spider_closed(self, spider):
+        """Processes an item and exports it using the exporter.
+        
+        Args:
+            item (dict): The scraped item to be processed and exported.
+            spider (Spider): The spider instance that generated this item.
+        
+        Returns:
+            dict: The processed item, unchanged from the input.
+        """        """
+        Handles the closure of a spider's operation.
+        
+        Args:
+            spider (Spider): The spider instance that has finished its crawling process.
+        
+        Returns:
+            None: This method doesn't return anything.
+        """
         self.exporter.finish_exporting()
         file = self.files.pop(spider)
         file.close()
